@@ -278,4 +278,33 @@ a {
     .back-icon {
         background: url('./assets/icons/arrow-left-solid.svg') no-repeat !important;
     }
+
+    .close-icon {
+        background: url('./assets/icons/close-solid.svg') no-repeat !important;
+    }
+
+    .profile-white-icon {
+        background: url('./assets/icons/user-solid.svg') no-repeat !important;
+    }
+
+    .email-white-icon {
+        background: url('./assets/icons/envelope-solid.svg') no-repeat !important;
+    }
+}
+
+.fake-plant {
+    .signup-form {
+        .profile-icon {
+            background: url('./assets/icons/user-solid-white.svg') no-repeat;
+        }
+
+        .password-icon {
+            background: url('./assets/icons/key-solid-white.svg') no-repeat;
+        }
+
+        .email-icon {
+            background: url('./assets/icons/envelope-solid-white.svg') no-repeat;
+        }
+    }
+
 }

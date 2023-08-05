@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +15,7 @@ export class ProfileComponent {
   msg = '';
   isError = false;
   loading = true;
-  DJANGO_SERVER = 'http://127.0.0.1:8000'
+  apiUrl = environment.imageUrl;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 
@@ -29,10 +29,15 @@ export class ProfileComponent {
   }
 
   onChange(event) {
+    this.msg = '';
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.profileForm.controls['profile'].setValue(file);
-      this.onSubmit();
+      if (file.type.startsWith('image/')) {
+        this.profileForm.controls['profile'].setValue(file);
+        this.onSubmit();
+      } else {
+        this.msg = 'Only image files are allowed.';
+      }
     }
   }
 
@@ -48,7 +53,7 @@ export class ProfileComponent {
       (response) => {
         if (response['resp'] == 'success') {
           if (response['data']) {
-            this.imageUrl = `${this.DJANGO_SERVER}${response['data']}`;
+            this.imageUrl = `${this.apiUrl}${response['data']}`;
           }
         } else if (response['resp'] == 'failed') {
           this.isError = true;
@@ -81,7 +86,7 @@ export class ProfileComponent {
             this.profileForm.controls['username'].setValue(data['username']);
             this.profileForm.controls['email'].setValue(data['email']);
             if (data['profile_picture']) {
-              this.imageUrl = `${this.DJANGO_SERVER}${data['profile_picture']}`;
+              this.imageUrl = `${this.apiUrl}${data['profile_picture']}`;
               this.profileForm.controls['profile'].setValue(data['profile_picture']);
             } else {
               this.imageUrl = '';

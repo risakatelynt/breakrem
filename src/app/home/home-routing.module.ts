@@ -25,9 +25,10 @@ const routes: Routes = [
       { path: "themes", component: ThemesComponent },
       { path: "settings", component: SettingsComponent },
       { path: "profile", component: ProfileComponent },
-      { path: "about", component: AboutComponent }
+      { path: "about", component: AboutComponent },
+      { path: "**", redirectTo: "view" }
     ],
-  },
+  }
 ];
 
 @NgModule({
