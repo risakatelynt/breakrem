@@ -102,6 +102,16 @@ export class UserService {
   }
 
   setUserProfile(profile) {
+    this.setOptions();
+    const body = {};
+    return this.http.post(this.apiUrl + 'userprofile/addProfile/', profile, this.httpOptions).pipe(
+      map((data) => {
+        return data;
+      })
+    )
+  }
+
+  setUserImage(profile) {
     let token = localStorage.getItem('token');
     if (token) {
       this.token = token;
@@ -111,7 +121,7 @@ export class UserService {
         Authorization: `Token ${this.token}`
       })
     };
-    return this.http.post(this.apiUrl + 'userprofile/add/', profile, this.httpOptions).pipe(
+    return this.http.post(this.apiUrl + 'userprofile/addImage/', profile, this.httpOptions).pipe(
       map((data) => {
         return data;
       })

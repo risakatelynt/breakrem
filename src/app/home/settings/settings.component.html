@@ -2,7 +2,10 @@
     <h2 class="text-center display-text pb-4">Settings</h2>
     <div class="row">
         <div class="col-12 mb-5">
-            <div class="heading mb-3">Notification Sound:</div>
+            <div class="heading mb-3">
+                <strong>Notification Sound:</strong>
+            </div>
+            <p class="display-text mb-4">Choose your preferred default alarm sound for notifications.</p>
             <div class="form-group mb-0">
                 <nav class="menu" (mouseleave)="onMouseLeaveNav()">
                     <ol>
@@ -21,7 +24,11 @@
             </div>
         </div>
         <div class="col-12 mb-5">
-            <div class="heading mb-3">Show Notification on screen:</div>
+            <div class="heading mb-3">
+                <strong>Show Notification on screen:</strong>
+            </div>
+            <p class="display-text mb-4">Enabling this option displays pop-up reminders on the screen, while disabling
+                it shows default desktop notifications.</p>
             <div class="d-flex">
                 <span class="display-text me-2">OFF</span>
                 <input class="bulb-checkbox" type="checkbox" id="screenToggle" [(ngModel)]="isScreenOn"
@@ -30,7 +37,11 @@
             </div>
         </div>
         <div class="col-12 mb-5">
-            <div class="heading mb-3">Play Sound:</div>
+            <div class="heading mb-3">
+                <strong>Play Sound:</strong>
+            </div>
+            <p class="display-text mb-4">When set to ON, notification sounds will be played; otherwise, they will be
+                delivered silently.</p>
             <div class="d-flex">
                 <span class="display-text me-2">OFF</span>
                 <input class="bulb-checkbox" type="checkbox" id="soundToggle" [(ngModel)]="isSoundOn"
@@ -39,7 +50,10 @@
             </div>
         </div>
         <div class="col-12 mb-5">
-            <div class="heading mb-3">Do Not Disturb:</div>
+            <div class="heading mb-3">
+                <strong>Do Not Disturb:</strong>
+            </div>
+            <p class="display-text mb-4">When set to ON, notifications will be suppressed.</p>
             <div class="d-flex">
                 <span class="display-text me-2">OFF</span>
                 <input class="bulb-checkbox" type="checkbox" id="dndToggle" [(ngModel)]="isDndOn"

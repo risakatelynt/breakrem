@@ -80,6 +80,14 @@ input {
     font-size: 20px
 }
 
+input::placeholder {
+    color: var(--text-color);
+}
+
+.error-message {
+    top: 45px;
+}
+
 .button-wrap {
     max-width: 150px;
 }

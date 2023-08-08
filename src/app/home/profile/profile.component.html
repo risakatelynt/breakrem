@@ -8,7 +8,7 @@
           <div class="picture-container">
             <div class="picture">
               <img *ngIf="imageUrl" class="image-size" [src]="imageUrl" alt="Uploaded Image" />
-              <input type="file" id="wizard-picture" (change)="onChange($event)" accept="image/*"/>
+              <input type="file" id="wizard-picture" (change)="onChange($event)" accept="image/*" />
             </div>
           </div>
         </div>
@@ -29,22 +29,35 @@
             <div class="posn-relative">
               <div class="form-group" [ngClass]="{'error-border': isInvalid(profileForm.controls['email'])}">
                 <label for="email" class="icons email-white-icon"></label>
-                <input type="text" formControlName="email" placeholder="Enter email" />
+                <input type="email" formControlName="email" placeholder="Enter email" />
                 <span class="input-focus"></span>
               </div>
               <div *ngIf="isInvalid(profileForm.controls['email'])" class="error-message">
-                Please enter email
+                {{ getEmailErrorMessage(profileForm.controls['email']) }}
               </div>
             </div>
           </div>
 
-          <div class="col-12 pt-4">
+          <div class="col-12 pt-4" *ngIf="isDisabled">
             <div class="button-wrap">
               <div class="button-bg"></div>
-              <button type="submit" *ngIf="isDisabled" (click)="edit()">Edit</button>
-              <button type="submit" *ngIf="!isDisabled" (click)="onSubmit()">Done</button>
+              <button type="submit" (click)="edit()">Edit</button>
             </div>
           </div>
+
+          <div class="col-6 pt-4" *ngIf="!isDisabled">
+            <div class="button-wrap">
+              <div class="button-bg"></div>
+              <button type="button" (click)="onCancel()">Cancel</button>
+            </div>
+          </div>
+          <div class="col-6 pt-4" *ngIf="!isDisabled">
+            <div class="button-wrap">
+              <div class="button-bg"></div>
+              <button type="submit" (click)="onSubmit()">Save</button>
+            </div>
+          </div>
+
         </div>
 
 

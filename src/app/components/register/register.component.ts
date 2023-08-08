@@ -18,9 +18,19 @@ export class RegisterComponent {
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({
       username: ["", Validators.required],
-      email: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required]
     })
+  }
+
+  getEmailErrorMessage(control): string {
+    if (control.hasError('required')) {
+      return 'Please enter email';
+    }
+    if (control.hasError('email')) {
+      return 'Please enter a valid email';
+    }
+    return '';
   }
 
   isInvalid(field): boolean {

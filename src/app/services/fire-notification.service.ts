@@ -149,7 +149,7 @@ export class FireNotificationService {
   setSound(soundName, soundUrl) {
     if (soundName != 'Select Alarm' && this.isSoundOn) {
       this.playSound(soundUrl);
-    } else if (this.defaultSoundName != '' && this.defaultSoundUrl != '') {
+    } else if (this.defaultSoundName && this.defaultSoundName != '' && this.defaultSoundUrl && this.defaultSoundUrl != '' && this.isSoundOn) {
       this.playSound(this.defaultSoundUrl);
     }
   }
@@ -169,7 +169,7 @@ export class FireNotificationService {
     let isSound = false;
     if (soundName != 'Select Alarm' && this.isSoundOn) {
       isSound = true
-    } else if (this.defaultSoundName && this.defaultSoundName != '' && this.defaultSoundUrl && this.defaultSoundUrl != '') {
+    } else if (this.defaultSoundName && this.defaultSoundName != '' && this.defaultSoundUrl && this.defaultSoundUrl != '' && this.isSoundOn) {
       isSound = true
     }
     // const notificationData = {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
 
@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ProfileComponent {
   profileForm: FormGroup;
+  previousForm: FormGroup;
   imageUrl;
   isDisabled = true;
   msg = '';
@@ -22,9 +23,11 @@ export class ProfileComponent {
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
       profile: [''],
-      username: [{ value: '', disabled: true }],
-      email: [{ value: '', disabled: true }]
+      username: [{ value: '', disabled: true }, Validators.required],
+      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]]
     });
+    // Store the original form values
+    this.previousForm = this.profileForm.value;
     this.getProfile();
   }
 
@@ -34,22 +37,27 @@ export class ProfileComponent {
       const file = event.target.files[0];
       if (file.type.startsWith('image/')) {
         this.profileForm.controls['profile'].setValue(file);
-        this.onSubmit();
+        this.onUpload();
       } else {
         this.msg = 'Only image files are allowed.';
       }
     }
   }
 
-  onSubmit() {
+  onCancel() {
+    // Reset the form values to the original values
+    this.profileForm.setValue(this.previousForm);
     this.profileForm.disable();
     this.isDisabled = true;
+  }
+
+  onUpload() {
     this.loading = true;
     const formData = new FormData();
     formData.append('profile_picture', this.profileForm.controls['profile'].value);
     formData.append('username', this.profileForm.controls['username'].value);
     formData.append('email', this.profileForm.controls['email'].value);
-    this.userService.setUserProfile(formData).subscribe(
+    this.userService.setUserImage(formData).subscribe(
       (response) => {
         if (response['resp'] == 'success') {
           if (response['data']) {
@@ -59,11 +67,6 @@ export class ProfileComponent {
           this.isError = true;
           this.msg = response['message'];
           this.imageUrl = '';
-        } else {
-          this.isError = true;
-          this.imageUrl = '';
-          this.isError = true;
-          this.msg = 'An error occured while uploading image. Please try again later.'
         }
         this.timeout();
       },
@@ -74,6 +77,30 @@ export class ProfileComponent {
         this.timeout();
       }
     );
+  }
+
+  onSubmit() {
+    if (this.profileForm.valid) {
+      this.profileForm.disable();
+      this.isDisabled = true;
+      this.loading = true;
+      const profile = { username: this.profileForm.controls['username'].value, email: this.profileForm.controls['email'].value };
+      this.userService.setUserProfile(profile).subscribe(
+        (response) => {
+          if (response['resp'] == 'failed') {
+            this.isError = true;
+            this.msg = response['message'];
+          }
+          this.timeout();
+        },
+        err => {
+          console.log(err);
+          this.isError = true;
+          this.msg = 'An error occured. Please try again.';
+          this.timeout();
+        }
+      );
+    }
   }
 
   getProfile() {
@@ -119,6 +146,16 @@ export class ProfileComponent {
     }, 1000);
   }
 
+  getEmailErrorMessage(control): string {
+    if (control.hasError('required')) {
+      return 'Please enter email';
+    }
+    if (control.hasError('email')) {
+      return 'Please enter a valid email';
+    }
+    return '';
+  }
+
   isInvalid(field): boolean {
     if (field) {
       if (field.invalid && (field.dirty || field.touched)) {
@@ -131,5 +168,7 @@ export class ProfileComponent {
   edit() {
     this.profileForm.enable();
     this.isDisabled = false;
+    // Store the original form values
+    this.previousForm = this.profileForm.value;
   }
 }
