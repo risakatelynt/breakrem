@@ -12,7 +12,6 @@ export class SettingsService {
   apiUrl = environment.apiUrl;
   private httpOptions: any;
   private token = '';
-  selectedTheme = '';
   constructor(private http: HttpClient, private userService: UserService) {
   }
 

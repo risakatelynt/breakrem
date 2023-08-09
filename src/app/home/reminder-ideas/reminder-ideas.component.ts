@@ -13,7 +13,7 @@ export class ReminderIdeasComponent {
   breakRem = [
     { content: "Stretch Break: Stretch Those Limbs! Energize your body with simple stretching exercises.", animationName: 'Strech Limbs', animationUrl: './assets/images/breaks/stretch-limbs.jpg' },
     { content: "Deep Breath Break: Close your eyes and take a few deep breaths. Find calmness and relaxation.", animationName: 'Meditate', animationUrl: './assets/images/breaks/meditate.jpg' },
-    { content: "Power Up Break: Refreshing Coffee Time! Recharge with a delightful cup of coffee.", animationUrl: './assets/images/breaks/coffee.jpg' },
+    { content: "Power Up Break: Refreshing Coffee Time! Recharge with a delightful cup of coffee.", animationName: 'Coffee', animationUrl: './assets/images/breaks/coffee.jpg' },
     { content: "Power Up Break: Refreshing Tea Time! Revitalize with a soothing cup of tea.", animationName: 'Tea', animationUrl: './assets/images/breaks/tea.jpg' },
     { content: "Lunge Break: Stand up and do a lunge. Hold for 10 seconds, then switch legs. Strengthen your lower body.", animationName: 'Lunges', animationUrl: './assets/images/breaks/lunges-woman.jpg' },
     { content: "Stretch Break: Rise Up and Shake Off! Loosen up and shake away the stiffness.", animationName: 'Touch Feet', animationUrl: './assets/images/breaks/touch-both-feet.jpg' },
